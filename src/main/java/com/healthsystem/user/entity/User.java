@@ -28,6 +28,9 @@ public class User {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.PERSIST)
+    private Doctor doctor;
+
     public User() {
         this.createdAt = LocalDateTime.now();
     }
