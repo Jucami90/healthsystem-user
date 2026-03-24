@@ -4,10 +4,7 @@ import com.healthsystem.user.dto.UserRequestDTO;
 import com.healthsystem.user.dto.UserResponseDTO;
 import com.healthsystem.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -17,13 +14,14 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/create")
-    public UserResponseDTO createUser(@RequestBody UserRequestDTO dto){
-        var user = userService.createUser(dto);
+    public UserResponseDTO createUser(
+            @RequestBody UserRequestDTO dto){
+        return userService.createUser(dto);
+    }
 
-        UserResponseDTO response = new UserResponseDTO();
-        response.setName(user.getName());
-        response.setEmail(user.getEmail());
-
-        return response;
+    @GetMapping("/{id}")
+    public UserResponseDTO findUser(
+            @RequestParam Long id){
+        return userService.findUser(id);
     }
 }
